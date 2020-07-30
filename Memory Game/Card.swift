@@ -27,7 +27,7 @@ enum CardState: Int {
 
 class Card {
     let imageType: CardImageType
-    let state: CardState
+    var state: CardState
     
     init(imageType: CardImageType) {
         self.imageType = imageType

@@ -44,4 +44,19 @@ class CardCollectionViewCell: UICollectionViewCell {
             return UIImage(named: "color8")!
         }
     }
+    
+    func flipCard(_ card: Card) {
+        guard card.state != .removed else {
+            return
+        }
+        
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
+            self.cardImage.transform = CGAffineTransform(scaleX: 0.0001, y: 1);
+        }, completion: { success in
+            self.cardImage.image = card.state == .faceDown ? UIImage(named: "color0") : self.image(for: card.imageType)
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
+                self.cardImage.transform = CGAffineTransform(scaleX: 1, y: 1);
+            }, completion:nil)
+        })
+    }
 }

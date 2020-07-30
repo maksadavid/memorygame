@@ -21,4 +21,13 @@ class Game: NSObject {
         }
         cards.shuffle()
     }
+    
+    func flipCard(at index: Int) {
+        let card = cards[index]
+        guard card.state != .removed else {
+            return
+        }
+        let oldState = cards[index].state
+        cards[index].state = (oldState == .faceDown) ? .faceUp : .faceDown
+    }
 }

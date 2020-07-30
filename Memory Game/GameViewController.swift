@@ -27,7 +27,12 @@ class GameViewController: UIViewController {
 }
 
 extension GameViewController: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        game.flipCard(at: indexPath.row)
+        let card = game.cards[indexPath.row]
+        let cell = collectionView.cellForItem(at: indexPath) as! CardCollectionViewCell
+        cell.flipCard(card)
+    }
 }
 
 extension GameViewController: UICollectionViewDelegateFlowLayout {
