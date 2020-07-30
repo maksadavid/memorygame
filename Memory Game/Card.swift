@@ -25,7 +25,7 @@ enum CardState: Int {
     case removed
 }
 
-class Card {
+class Card: NSObject {
     let imageType: CardImageType
     var state: CardState
     

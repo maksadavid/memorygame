@@ -27,7 +27,24 @@ class Game: NSObject {
         guard card.state != .removed else {
             return
         }
-        let oldState = cards[index].state
-        cards[index].state = (oldState == .faceDown) ? .faceUp : .faceDown
+        card.state = (card.state == .faceDown) ? .faceUp : .faceDown
+    }
+    
+    func resolveFaceUpCards() -> [Int] {
+        let faceUpCards = cards.filter { $0.state == .faceUp }
+        guard faceUpCards.count > 1 else {
+            return []
+        }
+        if faceUpCards[0].imageType == faceUpCards[1].imageType {
+            faceUpCards[0].state = .removed
+            faceUpCards[1].state = .removed
+        } else {
+            faceUpCards[0].state = .faceDown
+            faceUpCards[1].state = .faceDown
+        }
+        
+        let updatedIndex1 = cards.firstIndex(where: {$0 == faceUpCards[0]})!
+        let updatedIndex2 = cards.firstIndex(where: {$0 == faceUpCards[1]})!
+        return [updatedIndex1, updatedIndex2]
     }
 }

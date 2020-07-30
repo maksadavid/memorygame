@@ -31,7 +31,14 @@ extension GameViewController: UICollectionViewDelegate {
         game.flipCard(at: indexPath.row)
         let card = game.cards[indexPath.row]
         let cell = collectionView.cellForItem(at: indexPath) as! CardCollectionViewCell
-        cell.flipCard(card)
+        cell.flipCard(card) { _ in
+            let updatedIndexes = self.game.resolveFaceUpCards()
+            updatedIndexes.forEach {
+                let cell = self.collectionView.cellForItem(at: IndexPath(row: $0, section: 0)) as! CardCollectionViewCell
+                let card = self.game.cards[$0]
+                cell.flipCard(card, completion: nil)
+            }
+        }
     }
 }
 
