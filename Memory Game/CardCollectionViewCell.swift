@@ -12,7 +12,6 @@ class CardCollectionViewCell: UICollectionViewCell {
     @IBOutlet var cardImage: UIImageView!
     
     func configure(with card: Card) {
-        
         switch card.state {
         case .faceDown:
             cardImage.isHidden = false

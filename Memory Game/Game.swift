@@ -14,7 +14,7 @@ class Game: NSObject {
     override init() {
         super.init()
         cards = []
-        for i in 1 ..< 8 {
+        for i in 0 ..< 8 {
             let type = CardImageType.init(rawValue: i)!
             cards.append(Card(imageType: type))
             cards.append(Card(imageType: type))
