@@ -30,10 +30,6 @@ class GameViewController: UIViewController {
        startNewGame()
     }
     
-    @IBAction func scoresButtonTapped() {
-        
-    }
-    
     func startNewGame() {
         game = Game()
         collectionView.reloadData()

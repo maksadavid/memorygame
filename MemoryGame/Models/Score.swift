@@ -10,10 +10,10 @@ import UIKit
 import RealmSwift
 
 class Score: Object {
-    dynamic var id = UUID().uuidString
-    dynamic var name = ""
-    dynamic var scoreValue = 0
-    dynamic var timestamp = Date().timeIntervalSinceReferenceDate
+    @objc dynamic var id = UUID().uuidString
+    @objc dynamic var name = ""
+    @objc dynamic var scoreValue = 0
+    @objc dynamic var timestamp = Date().timeIntervalSinceReferenceDate
     
     convenience init(name: String, scoreValue: Int) {
         self.init()
