@@ -12,7 +12,7 @@ class GameViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var scoreLabel: UILabel!
     var selectedIndexes = [Int]()
-    let game = Game()
+    private var game = Game()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +24,13 @@ class GameViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         collectionView.collectionViewLayout.invalidateLayout()
+    }
+    
+    @IBAction func newGameButtonTapped() {
+        game = Game()
+        collectionView.reloadData()
+        scoreLabel.text = "Score: 0"
+        selectedIndexes = []
     }
     
     func secondCardDidFlip() {
