@@ -9,7 +9,8 @@
 import UIKit
 
 class Game: NSObject {
-    var cards = [Card]()
+    private(set) var cards = [Card]()
+    private(set) var score = 0
     
     override init() {
         super.init()
@@ -30,21 +31,23 @@ class Game: NSObject {
         card.state = (card.state == .faceDown) ? .faceUp : .faceDown
     }
     
-    func resolveFaceUpCards() -> [Int] {
+    func resolveFaceUpCards() -> (score: Int, updatedIndexes: [Int])  {
         let faceUpCards = cards.filter { $0.state == .faceUp }
         guard faceUpCards.count > 1 else {
-            return []
+            return (score,[])
         }
         if faceUpCards[0].imageType == faceUpCards[1].imageType {
             faceUpCards[0].state = .removed
             faceUpCards[1].state = .removed
+            score += 2
         } else {
             faceUpCards[0].state = .faceDown
             faceUpCards[1].state = .faceDown
+            score += -1
         }
         
         let updatedIndex1 = cards.firstIndex(where: {$0 == faceUpCards[0]})!
         let updatedIndex2 = cards.firstIndex(where: {$0 == faceUpCards[1]})!
-        return [updatedIndex1, updatedIndex2]
+        return (score, [updatedIndex1, updatedIndex2])
     }
 }

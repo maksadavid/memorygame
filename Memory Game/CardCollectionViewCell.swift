@@ -45,9 +45,10 @@ class CardCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func flipCard(_ card: Card, completion: ((Bool) -> Void)?) {
+    func flipCard(_ card: Card, completion: (() -> Void)?) {
         guard card.state != .removed else {
             cardImage.isHidden = true
+            completion?()
             return
         }
         
@@ -58,9 +59,7 @@ class CardCollectionViewCell: UICollectionViewCell {
             UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
                 self.cardImage.transform = CGAffineTransform(scaleX: 1, y: 1);
             }, completion: { success in
-                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-                    completion?(success)
-                }
+                completion?()
             })
         })
     }

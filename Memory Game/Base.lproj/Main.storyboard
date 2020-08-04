@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="tZN-K1-Awd">
-                                <rect key="frame" x="10" y="104" width="394" height="748"/>
+                                <rect key="frame" x="10" y="108" width="394" height="744"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="oKJ-Eh-5hJ">
                                     <size key="itemSize" width="128" height="128"/>
@@ -50,18 +50,27 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nUW-JA-NEq">
+                                <rect key="frame" x="170.5" y="64" width="73" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="tZN-K1-Awd" secondAttribute="bottom" constant="10" id="9iy-CG-Ly7"/>
+                            <constraint firstItem="tZN-K1-Awd" firstAttribute="top" secondItem="nUW-JA-NEq" secondAttribute="bottom" constant="20" id="FdI-K1-3hl"/>
                             <constraint firstItem="tZN-K1-Awd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="Pro-hh-vOT"/>
-                            <constraint firstItem="tZN-K1-Awd" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="60" id="c4N-tZ-gUS"/>
+                            <constraint firstItem="nUW-JA-NEq" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="VJw-rT-Ijv"/>
+                            <constraint firstItem="nUW-JA-NEq" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="X3N-ua-4xM"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="tZN-K1-Awd" secondAttribute="trailing" constant="10" id="xH6-Kb-vPD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="tZN-K1-Awd" id="t2h-CM-YgZ"/>
+                        <outlet property="scoreLabel" destination="nUW-JA-NEq" id="fFG-Uz-RhG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

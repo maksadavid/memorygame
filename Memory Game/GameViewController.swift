@@ -10,6 +10,8 @@ import UIKit
 
 class GameViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var scoreLabel: UILabel!
+    var selectedIndexes = [Int]()
     let game = Game()
     
     override func viewDidLoad() {
@@ -28,15 +30,29 @@ class GameViewController: UIViewController {
 
 extension GameViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        game.flipCard(at: indexPath.row)
+        guard !selectedIndexes.contains(indexPath.item) &&
+            selectedIndexes.count < 2 &&
+            game.cards[indexPath.item].state == .faceDown else {
+            return
+        }
         let card = game.cards[indexPath.row]
+        selectedIndexes.append(indexPath.item)
+        game.flipCard(at: indexPath.item)
+        let isSecondSelection = selectedIndexes.count == 2
         let cell = collectionView.cellForItem(at: indexPath) as! CardCollectionViewCell
-        cell.flipCard(card) { _ in
-            let updatedIndexes = self.game.resolveFaceUpCards()
-            updatedIndexes.forEach {
-                let cell = self.collectionView.cellForItem(at: IndexPath(row: $0, section: 0)) as! CardCollectionViewCell
-                let card = self.game.cards[$0]
-                cell.flipCard(card, completion: nil)
+        cell.flipCard(card) {
+            if isSecondSelection {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                    let result = self.game.resolveFaceUpCards()
+                    self.scoreLabel.text = "Score: \(result.score)"
+                    result.updatedIndexes.forEach {
+                        let cell = self.collectionView.cellForItem(at: IndexPath(row: $0, section: 0)) as! CardCollectionViewCell
+                        let card = self.game.cards[$0]
+                        cell.flipCard(card) {
+                            self.selectedIndexes.removeAll()
+                        }
+                    }
+                }
             }
         }
     }
