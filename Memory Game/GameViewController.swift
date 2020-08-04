@@ -26,6 +26,26 @@ class GameViewController: UIViewController {
         collectionView.collectionViewLayout.invalidateLayout()
     }
     
+    func secondCardDidFlip() {
+        let result = self.game.resolveFaceUpCards()
+        scoreLabel.text = "Score: \(result.score)"
+        result.updatedIndexes.forEach {
+            let cell = self.collectionView.cellForItem(at: IndexPath(row: $0, section: 0)) as! CardCollectionViewCell
+            let card = self.game.cards[$0]
+            cell.flipCard(card) {
+                self.selectedIndexes.removeAll()
+            }
+        }
+        if result.isGameFinished {
+            let alert = UIAlertController(title: "Congratulations!", message: "The game is finished. Please enter your name to record your score", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
+                // record score
+               let _ =  alert.textFields?.first
+            }))
+            alert.addTextField { _ in }
+            present(alert, animated: true, completion: nil)
+        }
+    }
 }
 
 extension GameViewController: UICollectionViewDelegate {
@@ -43,15 +63,7 @@ extension GameViewController: UICollectionViewDelegate {
         cell.flipCard(card) {
             if isSecondSelection {
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-                    let result = self.game.resolveFaceUpCards()
-                    self.scoreLabel.text = "Score: \(result.score)"
-                    result.updatedIndexes.forEach {
-                        let cell = self.collectionView.cellForItem(at: IndexPath(row: $0, section: 0)) as! CardCollectionViewCell
-                        let card = self.game.cards[$0]
-                        cell.flipCard(card) {
-                            self.selectedIndexes.removeAll()
-                        }
-                    }
+                    self.secondCardDidFlip()
                 }
             }
         }
