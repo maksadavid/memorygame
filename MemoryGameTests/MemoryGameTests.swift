@@ -1,6 +1,6 @@
 //
-//  Memory_GameTests.swift
-//  Memory GameTests
+//  MemoryGameTests.swift
+//  MemoryGameTests
 //
 //  Created by David Maksa on 30.07.20.
 //  Copyright © 2020 David Maksa. All rights reserved.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import Memory_Game
 
-class Memory_GameTests: XCTestCase {
+class MemoryGameTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
