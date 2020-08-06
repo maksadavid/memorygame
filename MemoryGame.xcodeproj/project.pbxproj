@@ -22,6 +22,9 @@
 		EB6FF31F24D9661B00309237 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6FF31E24D9661B00309237 /* Score.swift */; };
 		EB6FF32424D9C57800309237 /* ScoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6FF32324D9C57800309237 /* ScoresViewController.swift */; };
 		EB6FF32624D9C76B00309237 /* ScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6FF32524D9C76B00309237 /* ScoreTableViewCell.swift */; };
+		EBD1638C24DC33EB00AA7E05 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6FF31724D2D3F400309237 /* Game.swift */; };
+		EBD1638D24DC340400AA7E05 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6FF31C24D2DAD400309237 /* Card.swift */; };
+		EBD1638E24DC340700AA7E05 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6FF31E24D9661B00309237 /* Score.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -358,6 +361,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB6FF30D24D2CE9A00309237 /* MemoryGameTests.swift in Sources */,
+				EBD1638D24DC340400AA7E05 /* Card.swift in Sources */,
+				EBD1638E24DC340700AA7E05 /* Score.swift in Sources */,
+				EBD1638C24DC33EB00AA7E05 /* Game.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

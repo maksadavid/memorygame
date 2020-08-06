@@ -10,25 +10,53 @@ import XCTest
 @testable import Memory_Game
 
 class MemoryGameTests: XCTestCase {
+    
+    var game: Game!
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        game = Game()
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testGameInitialization() throws {
+        XCTAssert(game.cards.count == 16)
+        XCTAssert(game.score == 0)
+        XCTAssert(game.cards.filter{$0.state == .faceDown}.count == 16)
+        XCTAssert(game.cards.filter{$0.imageType == .sun}.count == 2)
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func testCardFlipping() throws {
+        game.flipCard(at: 0)
+        XCTAssert(game.cards.first?.state == .faceUp)
+        game.cards[1].state = .removed
+        game.flipCard(at: 1)
+        XCTAssert(game.cards[1].state == .removed)
     }
-
+    
+    func testCardResolvingWhenDifferentCardsAreFlipped() throws {
+        let firstTwoCardsAreAPaire = game.cards[0].imageType == game.cards[1].imageType
+        let indexes = [0, firstTwoCardsAreAPaire ? 2 : 1]
+        game.flipCard(at: indexes[0])
+        game.flipCard(at: indexes[1])
+        let result = game.resolveFaceUpCards()
+        XCTAssert(result.score == -1)
+        XCTAssert(result.updatedIndexes == indexes)
+        XCTAssert(result.isGameFinished == false)
+        XCTAssert(game.cards[indexes[0]].state == .faceDown)
+        XCTAssert(game.cards[indexes[1]].state == .faceDown)
+    }
+    
+    func testCardResolvingWhenTheSameCardsAreFlipped() throws {
+        let indexes = game.cards.indices.filter { game.cards[$0].imageType == .sun }
+        game.flipCard(at: indexes[0])
+        game.flipCard(at: indexes[1])
+        let result = game.resolveFaceUpCards()
+        XCTAssert(result.score == 2)
+        XCTAssert(result.updatedIndexes == indexes)
+        XCTAssert(result.isGameFinished == false)
+        XCTAssert(game.cards[indexes[0]].state == .removed)
+        XCTAssert(game.cards[indexes[1]].state == .removed)
+    }
 }
