@@ -16,6 +16,7 @@ class ScoresViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
+        tableView.rowHeight = 44;
         let realm = try! Realm()
         scores = realm.objects(Score.self).sorted(byKeyPath: "scoreValue", ascending: false)
     }
